@@ -17,8 +17,8 @@ export default function Footer() {
         </div>
         
         <p className="font-script text-2xl text-primary" data-testid="text-footer-year">
-          {currentYear}
-        </p>
+  Once again Many More Happy returns of the day Shirley
+</p>
       </div>
     </footer>
   );

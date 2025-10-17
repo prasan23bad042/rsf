@@ -46,6 +46,9 @@ export default function SurpriseReveal({ memories = [] }: SurpriseRevealProps) {
   const displayMemories = memories.length > 0 ? memories : defaultMemories;
 
   const handleReveal = () => {
+    // Play reveal message audio
+    const audio = new Audio('/audio/reveal_message.mp3');
+    audio.play().catch(() => {});
     setIsRevealed(true);
   };
 

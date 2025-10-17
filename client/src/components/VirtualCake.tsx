@@ -19,6 +19,10 @@ export default function VirtualCake({
   const blowCandles = () => {
     if (!candlesLit) return;
 
+    // Play birthday cake audio
+    const audio = new Audio('/audio/birthday_cake.mp3');
+    audio.play().catch(() => {});
+
     setCandlesLit(false);
     setShowSmoke(true);
     setShowConfetti(true);
