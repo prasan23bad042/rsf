@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Gift, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,10 +11,12 @@ interface Memory {
 
 interface SurpriseRevealProps {
   memories?: Memory[];
+  onAudioPlay?: (audio: HTMLAudioElement) => void;
 }
 
-export default function SurpriseReveal({ memories = [] }: SurpriseRevealProps) {
+export default function SurpriseReveal({ memories = [], onAudioPlay }: SurpriseRevealProps) {
   const [isRevealed, setIsRevealed] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const defaultMemories: Memory[] = [
     {
@@ -48,7 +50,14 @@ export default function SurpriseReveal({ memories = [] }: SurpriseRevealProps) {
   const handleReveal = () => {
     // Play reveal message audio
     const audio = new Audio('/audio/reveal_message.mp3');
+    audioRef.current = audio;
     audio.play().catch(() => {});
+    
+    // Pass audio reference to parent
+    if (onAudioPlay) {
+      onAudioPlay(audio);
+    }
+    
     setIsRevealed(true);
   };
 

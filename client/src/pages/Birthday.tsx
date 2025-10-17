@@ -12,6 +12,7 @@ export default function Birthday() {
   const [candlesBlown, setCandlesBlown] = useState(false);
   const bgMusicRef = useRef<HTMLAudioElement | null>(null);
   const celebrationRef = useRef<HTMLAudioElement | null>(null);
+  const revealAudioRef = useRef<HTMLAudioElement | null>(null);
 
   // 🔊 Play background music on page load
   useEffect(() => {
@@ -27,6 +28,13 @@ export default function Birthday() {
   const handleBlowCandles = () => {
     const bg = bgMusicRef.current;
     const celebration = celebrationRef.current;
+    const revealAudio = revealAudioRef.current;
+
+    // Stop reveal audio if playing
+    if (revealAudio) {
+      revealAudio.pause();
+      revealAudio.currentTime = 0;
+    }
 
     // Stop background music
     if (bg) {
@@ -103,6 +111,7 @@ export default function Birthday() {
               "Every adventure with you is my favorite adventure. Here's to many more!",
           },
         ]}
+        onAudioPlay={(audio) => { revealAudioRef.current = audio; }}
       />
 
       {/* Pass handler to VirtualCake */}
