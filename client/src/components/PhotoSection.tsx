@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import Sparkles from "./Sparkles";
 import Confetti from "./Confetti";
+import FloatingFlowers from "./FloatingFlowers";
 
 interface PhotoSectionProps {
   imageUrl?: string;
@@ -30,7 +31,8 @@ export default function PhotoSection({ imageUrl, caption = "Forever in my heart"
   }, []);
 
   return (
-    <section id="photo-section" className="py-24 px-4">
+    <section id="photo-section" className="py-24 px-4 relative">
+      {isVisible && <FloatingFlowers count={25} />}
       <div className="max-w-4xl mx-auto">
         <Card 
           className={`relative overflow-hidden p-8 md:p-12 transition-all duration-1000 ${

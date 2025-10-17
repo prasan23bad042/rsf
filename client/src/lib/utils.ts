@@ -20,28 +20,22 @@ export function calculateDetailedAge(birthDate: Date): {
   let months = today.getMonth() - birthDate.getMonth();
   let days = today.getDate() - birthDate.getDate();
 
+  // Adjust for negative days first
+  if (days < 0) {
+    months--;
+    // Get the last day of the previous month
+    const prevMonthLastDay = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      0
+    ).getDate();
+    days += prevMonthLastDay;
+  }
+
   // Adjust for negative months
   if (months < 0) {
     years--;
     months += 12;
-  }
-
-  // Adjust for negative days
-  if (days < 0) {
-    months--;
-    // Get the number of days in the previous month
-    const prevMonth = new Date(
-      today.getFullYear(),
-      today.getMonth() - 1,
-      birthDate.getDate()
-    );
-    days += prevMonth.getDate();
-
-    // If months went negative after adjustment, fix it
-    if (months < 0) {
-      years--;
-      months += 12;
-    }
   }
 
   return { years, months, days };

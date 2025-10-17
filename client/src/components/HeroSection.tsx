@@ -7,7 +7,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ name }: HeroSectionProps) {
-  const [age, setAge] = useState<number>(getCurrentAge());
+  const [age, setAge] = useState<string>(getCurrentAge());
 
   // Update age when component mounts (in case of real-time updates)
   useEffect(() => {
