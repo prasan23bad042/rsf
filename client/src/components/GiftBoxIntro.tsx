@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface GiftBoxIntroProps {
@@ -9,9 +9,22 @@ export default function GiftBoxIntro({ onComplete }: GiftBoxIntroProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showExplosion, setShowExplosion] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Preload audio on component mount
+  useEffect(() => {
+    audioRef.current = new Audio('/audio/Cele.mp3');
+    audioRef.current.load();
+  }, []);
 
   const handleOpenGift = () => {
     if (isOpen) return;
+    
+    // Play celebration audio instantly
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
+    }
     
     setIsOpen(true);
 
